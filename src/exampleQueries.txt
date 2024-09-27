@@ -1,0 +1,22 @@
+query GamesQuery {
+  games {
+    title,
+    platform
+  }
+}
+
+
+query ReviewsQuery {
+  reviews {
+    id,
+    content
+  }
+}
+
+query ReviewQuery($id:ID!) {
+  review(id: $id) {
+    id,
+    rating,
+    content
+  }
+}
