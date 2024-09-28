@@ -1,11 +1,12 @@
-query GamesQuery {
+# all games
+uery GamesQuery {
   games {
     title,
     platform
   }
 }
 
-
+// all reviews
 query ReviewsQuery {
   reviews {
     id,
@@ -13,10 +14,88 @@ query ReviewsQuery {
   }
 }
 
+# get one review
 query ReviewQuery($id:ID!) {
   review(id: $id) {
     id,
     rating,
     content
+  }
+}
+
+# get one author
+query AuthorQuery($id:ID!) {
+  author(id: $id) {
+    id,
+    name,
+    verified
+  }
+}
+
+# get one game with reviews
+query GameQuery($id:ID!) {
+  game(id: $id) {
+    id,
+    title,
+    platform,
+    reviews {
+      id,
+      content,
+    }
+  }
+}
+
+get one review with game
+query ReviewQuery($id:ID!) {
+  review(id: $id) {
+    id,
+    content,
+    rating,
+    game {
+      id,
+      title,
+    }
+  }
+}
+
+get one review with game and author
+query ReviewQuery($id:ID!) {
+  review(id: $id) {
+    id,
+    content,
+    rating,
+    game {
+      id,
+      title,
+    }
+    author {
+      id,
+      name
+    }
+  }
+}
+
+deleteGame
+mutation deleteMutation($deleteGameId: ID!) {
+  deleteGame(id: $deleteGameId) {
+    id,
+    platform,
+    title
+  }
+}
+
+mutation insertMutation($title: String!, $platforms: [String!]!) {
+  addGame(title: $title, platforms: $platforms) {
+    id
+    title
+    platform
+  }
+}
+
+mutation insertMutation($game: AddGameInput!) {
+  addGame2(game: $game) {
+    id,
+    title,
+    platform
   }
 }
